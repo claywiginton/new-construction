@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Construction Estimator - Sanders HVAC</title>
+    <style>
+        :root {
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-cream-50: var(--color-charcoal-700);
+                --color-cream-100: var(--color-charcoal-800);
+                --color-slate-900: var(--color-gray-200);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--color-cream-50);
+            color: var(--color-slate-900);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--color-cream-100);
+            border-bottom: 2px solid rgba(var(--color-brown-600-rgb), 0.2);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--color-teal-600);
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .company-info {
+            text-align: right;
+            font-size: 14px;
+            color: var(--color-slate-500);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(var(--color-brown-600-rgb), 0.2);
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--color-slate-500);
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--color-teal-500);
+        }
+
+        .tab.active {
+            color: var(--color-teal-600);
+            border-bottom-color: var(--color-teal-600);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: var(--color-cream-100);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(var(--color-brown-600-rgb), 0.12);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: var(--color-teal-600);
+            font-weight: 600;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--color-slate-900);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            padding: 10px 12px;
+            border: 1px solid rgba(var(--color-brown-600-rgb), 0.2);
+            border-radius: 6px;
+            font-size: 14px;
+            background: var(--color-cream-50);
+            color: var(--color-slate-900);
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--color-teal-500);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .material-list {
+            margin-top: 20px;
+        }
+
+        .material-category {
+            margin-bottom: 24px;
+        }
+
+        .category-header {
+            background: rgba(var(--color-brown-600-rgb), 0.08);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--color-teal-700);
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-header:hover {
+            background: rgba(var(--color-brown-600-rgb), 0.12);
+        }
+
+        .material-items {
+            display: grid;
+            gap: 8px;
+        }
+
+        .material-item {
+            display: grid;
+            grid-template-columns: 100px 120px 1fr auto;
+            gap: 12px;
+            padding: 12px;
+            background: var(--color-cream-50);
+            border-radius: 6px;
+            align-items: center;
+            border: 1px solid rgba(var(--color-brown-600-rgb), 0.1);
+        }
+
+        .material-item input[type="number"] {
+            width: 100%;
+        }
+
+        .material-desc {
+            font-size: 14px;
+            color: var(--color-slate-900);
+        }
+
+        .material-re {
+            font-size: 12px;
+            color: var(--color-slate-500);
+            font-family: monospace;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--color-teal-500);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-teal-600);
+        }
+
+        .btn-secondary {
+            background: rgba(var(--color-brown-600-rgb), 0.12);
+            color: var(--color-slate-900);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(var(--color-brown-600-rgb), 0.2);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .summary-card {
+            background: var(--color-cream-50);
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid rgba(var(--color-brown-600-rgb), 0.12);
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: var(--color-slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--color-teal-600);
+        }
+
+        .po-list {
+            margin-top: 20px;
+        }
+
+        .po-item {
+            display: grid;
+            grid-template-columns: 80px 120px 1fr;
+            gap: 12px;
+            padding: 12px;
+            background: var(--color-cream-50);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(var(--color-brown-600-rgb), 0.1);
+        }
+
+        .po-qty {
+            font-weight: 600;
+            color: var(--color-teal-600);
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: rgba(33, 128, 141, 0.1);
+            border-color: var(--color-teal-500);
+            color: var(--color-slate-900);
+        }
+
+        .alert-success {
+            background: rgba(33, 128, 141, 0.15);
+            border-color: var(--color-teal-600);
+            color: var(--color-slate-900);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-info {
+            background: rgba(33, 128, 141, 0.15);
+            color: var(--color-teal-700);
+        }
+
+        .integration-section {
+            margin-top: 30px;
+        }
+
+        .integration-card {
+            background: var(--color-cream-100);
+            border: 2px solid rgba(var(--color-brown-600-rgb), 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .integration-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .integration-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-teal-600);
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-connected {
+            background: var(--color-teal-500);
+        }
+
+        .status-disconnected {
+            background: var(--color-slate-500);
+        }
+
+        .collapsible {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsible.open {
+            max-height: 2000px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .material-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .po-item {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .company-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <h1>🏗️ New Construction Estimator</h1>
+                <p style="margin-top: 4px; color: var(--color-slate-500);">Professional HVAC Estimation & Material Planning</p>
+            </div>
+            <div class="company-info">
+                <strong>Sanders Heating &amp; Cooling</strong><br>
+                621 Kieth Dr, Greenville, SC 29607<br>
+                (864) 288-7671
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" data-tab="project">Project Info</button>
+            <button class="tab" data-tab="materials">Material Selection</button>
+            <button class="tab" data-tab="po">Purchase Order</button>
+            <button class="tab" data-tab="pricing">Pricing Summary</button>
+            <button class="tab" data-tab="integration">ServiceTitan Integration</button>
+        </div>
+
+        <!-- Project Info Tab -->
+        <div class="tab-content active" id="project">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Customer &amp; Job Information</h2>
+                    <span class="badge badge-info" id="jobStatus">Draft</span>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="workOrder">Work Order #</label>
+                        <input type="text" id="workOrder" placeholder="Auto-generated">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDate">Date</label>
+                        <input type="date" id="jobDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" id="customerName" placeholder="Enter customer name">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Job Address</label>
+                        <input type="text" id="address" placeholder="Street address">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City, State, ZIP</label>
+                        <input type="text" id="city" placeholder="City, State ZIP">
+                    </div>
+                    <div class="form-group">
+                        <label for="primaryPhone">Primary Phone</label>
+                        <input type="tel" id="primaryPhone" placeholder="(864) 555-1234">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="customer@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="specialist">Comfort Specialist</label>
+                        <input type="text" id="specialist" placeholder="Technician name">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label for="jobNotes">Job Notes</label>
+                    <textarea id="jobNotes" placeholder="Enter detailed job notes, measurements, and special requirements..."></textarea>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Equipment Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="furnaceModel">Furnace/Air Handler Model</label>
+                        <input type="text" id="furnaceModel" placeholder="e.g., S9X1B080UH4">
+                    </div>
+                    <div class="form-group">
+                        <label for="condModel">Condenser/Heat Pump Model</label>
+                        <input type="text" id="condModel" placeholder="e.g., XP14-024">
+                    </div>
+                    <div class="form-group">
+                        <label for="coilModel">Coil Model</label>
+                        <input type="text" id="coilModel" placeholder="e.g., BMAC3036B">
+                    </div>
+                    <div class="form-group">
+                        <label for="systemSize">System Size (Tons)</label>
+                        <input type="number" id="systemSize" step="0.5" min="1" max="10" placeholder="2.5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="saveProject()">💾 Save Project</button>
+                <button class="btn btn-secondary" onclick="clearProject()">🔄 Clear Form</button>
+                <button class="btn btn-secondary" onclick="showTab('materials')">Next: Select Materials →</button>
+            </div>
+        </div>
+
+        <!-- Materials Tab -->
+        <div class="tab-content" id="materials">
+            <div class="alert alert-info">
+                <strong>💡 Quick Start:</strong> Enter quantities for items you need. These will automatically populate your Purchase Order list.
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>Material Selection</h2>
+                    <div>
+                        <button class="btn btn-secondary" onclick="expandAllCategories()">Expand All</button>
+                        <button class="btn btn-secondary" onclick="collapseAllCategories()">Collapse All</button>
+                    </div>
+                </div>
+
+                <div class="material-list" id="materialList"></div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="saveMaterials()">💾 Save Materials</button>
+                <button class="btn btn-secondary" onclick="clearMaterials()">🔄 Clear All Quantities</button>
+                <button class="btn btn-primary" onclick="showTab('po')">Next: Generate PO →</button>
+            </div>
+        </div>
+
+        <!-- Purchase Order Tab -->
+        <div class="tab-content" id="po">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Purchase Order Preview</h2>
+                    <div style="display: flex; gap: 12px;">
+                        <span class="badge badge-info" id="itemCount">0 items</span>
+                        <button class="btn btn-secondary" onclick="refreshPO()">🔄 Refresh</button>
+                    </div>
+                </div>
+
+                <div id="poList" class="po-list"></div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="exportPO()">📄 Export to PDF</button>
+                    <button class="btn btn-primary" onclick="exportExcel()">📊 Export to Excel</button>
+                    <button class="btn btn-secondary" onclick="emailPO()">📧 Email to Supplier</button>
+                    <button class="btn btn-primary" onclick="sendToServiceTitan()">🚀 Send to ServiceTitan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Tab -->
+        <div class="tab-content" id="pricing">
+            <div class="section">
+                <h2>Job Cost Summary</h2>
+                
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-label">Equipment Cost</div>
+                        <div class="summary-value" id="equipCost">$0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Materials Cost</div>
+                        <div class="summary-value" id="matCost">$0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Labor (16 MD)</div>
+                        <div class="summary-value" id="laborCost">$3,800</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Total Cost</div>
+                        <div class="summary-value" id="totalCost">$0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Selling Price (40% GP)</div>
+                        <div class="summary-value" id="sellingPrice">$0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Gross Profit</div>
+                        <div class="summary-value" id="grossProfit">$0</div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 24px; max-width: 300px;">
+                    <label for="gpMargin">Target Gross Profit Margin (%)</label>
+                    <input type="number" id="gpMargin" value="40" min="0" max="100" step="5" onchange="updatePricing()">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="generateProposal()">📋 Generate Proposal</button>
+                <button class="btn btn-secondary" onclick="showTab('integration')">View Integration Options →</button>
+            </div>
+        </div>
+
+        <!-- ServiceTitan Integration Tab -->
+        <div class="tab-content" id="integration">
+            <div class="section">
+                <h2>ServiceTitan Integration Strategy</h2>
+                <p style="margin-bottom: 20px; color: var(--color-slate-500);">
+                    Connect this estimator to your ServiceTitan workflow for seamless new construction project management.
+                </p>
+
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-title">🎯 Project Creation &amp; Tracking</div>
+                        <span class="status-indicator status-disconnected" title="Available"></span>
+                    </div>
+                    <p style="color: var(--color-slate-500); margin-bottom: 12px;">
+                        Automatically create ServiceTitan projects from estimates with all job details, equipment, and materials.
+                    </p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Auto-populate customer information</li>
+                        <li>✓ Create project with phases (Rough-in, Install, Trim-out)</li>
+                        <li>✓ Set project budgets and labor estimates</li>
+                        <li>✓ Attach equipment specifications</li>
+                    </ul>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-title">📦 Purchase Order Management</div>
+                        <span class="status-indicator status-disconnected" title="Available"></span>
+                    </div>
+                    <p style="color: var(--color-slate-500); margin-bottom: 12px;">
+                        Send material lists directly to ServiceTitan Purchase Order system for vendor management.
+                    </p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Generate POs with one click</li>
+                        <li>✓ Assign to preferred vendors</li>
+                        <li>✓ Track delivery status</li>
+                        <li>✓ Auto-update inventory on receipt</li>
+                    </ul>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-title">💰 Estimate &amp; Invoice Sync</div>
+                        <span class="status-indicator status-disconnected" title="Available"></span>
+                    </div>
+                    <p style="color: var(--color-slate-500); margin-bottom: 12px;">
+                        Convert estimates to ServiceTitan jobs with all pricing, materials, and labor automatically included.
+                    </p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Line-item estimate creation</li>
+                        <li>✓ Progress billing setup</li>
+                        <li>✓ Change order tracking</li>
+                        <li>✓ Real-time job costing</li>
+                    </ul>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-title">📊 Job Costing &amp; Profitability</div>
+                        <span class="status-indicator status-disconnected" title="Available"></span>
+                    </div>
+                    <p style="color: var(--color-slate-500); margin-bottom: 12px;">
+                        Track actual costs vs. estimates in real-time with ServiceTitan's project tracking features.
+                    </p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Real-time cost tracking</li>
+                        <li>✓ Labor hour comparison</li>
+                        <li>✓ Material usage monitoring</li>
+                        <li>✓ Profit margin analysis</li>
+                    </ul>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-title">👥 Crew Scheduling &amp; Dispatch</div>
+                        <span class="status-indicator status-disconnected" title="Available"></span>
+                    </div>
+                    <p style="color: var(--color-slate-500); margin-bottom: 12px;">
+                        Schedule installation crews with estimated labor hours and material requirements pre-loaded.
+                    </p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Multi-day project scheduling</li>
+                        <li>✓ Crew assignment by phase</li>
+                        <li>✓ Material prep notifications</li>
+                        <li>✓ Mobile access for field teams</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 24px;">
+                    <strong>🚀 Ready to Connect?</strong><br>
+                    Contact your ServiceTitan account manager or reach out to implement these integrations via the ServiceTitan API. 
+                    Integration can be set up through ServiceTitan's developer portal with proper authentication.
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="openSTDocs()">📚 View ServiceTitan API Docs</button>
+                    <button class="btn btn-secondary" onclick="downloadIntegrationGuide()">📥 Download Integration Guide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize date
+        document.getElementById('jobDate').valueAsDate = new Date();
+
+        // Material data structure
+        const materialCategories = {
+            'PIPE': [
+                {desc: '4" X 5\' 30GA', re: ''},
+                {desc: '6" X 5\' 30GA', re: ''},
+                {desc: '8" X 5\' 30 GA', re: ''},
+                {desc: '10" X 5\' 30 GA', re: ''},
+                {desc: '12" X 5\' 30 GA', re: ''},
+                {desc: '14" X 5\' 28 GA', re: ''},
+                {desc: '16" X 5\' 28GA', re: ''}
+            ],
+            'ELBOWS': [
+                {desc: '4" 30GA', re: ''},
+                {desc: '6" 30GA', re: ''},
+                {desc: '8" 30 GA', re: ''},
+                {desc: '10" 30 GA', re: ''},
+                {desc: '12" 30 GA', re: ''},
+                {desc: '14" 28 GA', re: ''}
+            ],
+            'WYES': [
+                {desc: '6X4X4', re: ''},
+                {desc: '8X6X6', re: ''},
+                {desc: '10X8X8', re: ''},
+                {desc: '12X10X10', re: ''},
+                {desc: '14X12X12', re: ''}
+            ],
+            'REDUCERS': [
+                {desc: '6X4', re: ''},
+                {desc: '8X6', re: ''},
+                {desc: '10X8', re: ''},
+                {desc: '12X10', re: ''},
+                {desc: '14X12', re: ''}
+            ],
+            'BOOTS': [
+                {desc: '6X10X6 STR', re: ''},
+                {desc: '6X10X6 90', re: ''},
+                {desc: '6X10X6 CENTER END', re: ''},
+                {desc: '6X10X8 STR', re: ''},
+                {desc: '6X10X8 90', re: ''}
+            ],
+            'FLEX DUCT (R4)': [
+                {desc: '4" R-4 FLEX', re: ''},
+                {desc: '6" R-4 FLEX', re: ''},
+                {desc: '8" R-4 FLEX', re: ''},
+                {desc: '10" R-4 FLEX', re: ''},
+                {desc: '12" R-4 FLEX', re: ''},
+                {desc: '14" R-4 FLEX', re: ''}
+            ],
+            'LINE SETS': [
+                {desc: '3/4 30\' Line Set', re: ''},
+                {desc: '3/4 50\' Line Set', re: ''},
+                {desc: '7/8 30\' Line Set', re: ''},
+                {desc: '7/8 50\' Line Set', re: ''}
+            ],
+            'DRAIN PANS': [
+                {desc: '36X36 Plastic Drain Pan', re: ''},
+                {desc: '30X60 Plastic Drain Pan', re: ''},
+                {desc: '32X72 Plastic Drain Pan', re: ''}
+            ],
+            'MISCELLANEOUS': [
+                {desc: '18/8 TSTAT WIRE', re: ''},
+                {desc: 'Condensate Pump 120V', re: ''},
+                {desc: 'Mastic Gallon', re: ''},
+                {desc: 'Duct Tape Roll', re: ''},
+                {desc: 'Black Strapping Roll', re: ''},
+                {desc: 'Panduit Straps (zip ties)', re: ''}
+            ]
+        };
+
+        // Render material list
+        function renderMaterials() {
+            const container = document.getElementById('materialList');
+            container.innerHTML = '';
+
+            Object.keys(materialCategories).forEach(category => {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'material-category';
+                
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.innerHTML = `
+                    <span>${category}</span>
+                    <span>▼</span>
+                `;
+                header.onclick = () => toggleCategory(catDiv);
+                
+                const itemsDiv = document.createElement('div');
+                itemsDiv.className = 'material-items collapsible open';
+                
+                materialCategories[category].forEach((item, idx) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'material-item';
+                    itemDiv.innerHTML = `
+                        <input type="number" 
+                               class="material-qty" 
+                               data-category="${category}" 
+                               data-index="${idx}"
+                               min="0" 
+                               placeholder="Qty"
+                               onchange="updatePO()">
+                        <span class="material-re">${item.re}</span>
+                        <span class="material-desc">${item.desc}</span>
+                    `;
+                    itemsDiv.appendChild(itemDiv);
+                });
+                
+                catDiv.appendChild(header);
+                catDiv.appendChild(itemsDiv);
+                container.appendChild(catDiv);
+            });
+        }
+
+        function toggleCategory(catDiv) {
+            const items = catDiv.querySelector('.material-items');
+            items.classList.toggle('open');
+        }
+
+        function expandAllCategories() {
+            document.querySelectorAll('.material-items').forEach(el => el.classList.add('open'));
+        }
+
+        function collapseAllCategories() {
+            document.querySelectorAll('.material-items').forEach(el => el.classList.remove('open'));
+        }
+
+        function updatePO() {
+            const poList = document.getElementById('poList');
+            const items = [];
+            
+            document.querySelectorAll('.material-qty').forEach(input => {
+                if (input.value && parseInt(input.value) > 0) {
+                    const category = input.dataset.category;
+                    const index = input.dataset.index;
+                    const item = materialCategories[category][index];
+                    items.push({
+                        qty: input.value,
+                        re: item.re,
+                        desc: item.desc
+                    });
+                }
+            });
+
+            if (items.length === 0) {
+                poList.innerHTML = '<p style="color: var(--color-slate-500); text-align: center; padding: 40px;">No items selected. Add quantities in the Material Selection tab.</p>';
+                document.getElementById('itemCount').textContent = '0 items';
+                return;
+            }
+
+            poList.innerHTML = items.map(item => `
+                <div class="po-item">
+                    <div class="po-qty">${item.qty}</div>
+                    <div class="material-re">${item.re}</div>
+                    <div class="material-desc">${item.desc}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('itemCount').textContent = `${items.length} items`;
+        }
+
+        function refreshPO() {
+            updatePO();
+            showNotification('Purchase order refreshed');
+        }
+
+        // Tab navigation
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.dataset.tab;
+                showTab(tabName);
+            });
+        });
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+
+            if (tabName === 'po') {
+                updatePO();
+            }
+        }
+
+        // Save functions
+        function saveProject() {
+            const project = {
+                workOrder: document.getElementById('workOrder').value,
+                date: document.getElementById('jobDate').value,
+                customer: document.getElementById('customerName').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                phone: document.getElementById('primaryPhone').value,
+                email: document.getElementById('email').value,
+                specialist: document.getElementById('specialist').value,
+                notes: document.getElementById('jobNotes').value,
+                furnace: document.getElementById('furnaceModel').value,
+                condenser: document.getElementById('condModel').value,
+                coil: document.getElementById('coilModel').value,
+                systemSize: document.getElementById('systemSize').value
+            };
+
+            localStorage.setItem('currentProject', JSON.stringify(project));
+            showNotification('✓ Project saved successfully');
+            document.getElementById('jobStatus').textContent = 'Saved';
+        }
+
+        function saveMaterials() {
+            const materials = [];
+            document.querySelectorAll('.material-qty').forEach(input => {
+                if (input.value) {
+                    materials.push({
+                        category: input.dataset.category,
+                        index: input.dataset.index,
+                        qty: input.value
+                    });
+                }
+            });
+
+            localStorage.setItem('currentMaterials', JSON.stringify(materials));
+            showNotification('✓ Materials saved successfully');
+        }
+
+        function clearProject() {
+            if (confirm('Clear all project information?')) {
+                document.querySelectorAll('input, textarea').forEach(el => {
+                    if (el.type !== 'date' && el.id !== 'gpMargin') {
+                        el.value = '';
+                    }
+                });
+                showNotification('Project cleared');
+            }
+        }
+
+        function clearMaterials() {
+            if (confirm('Clear all material quantities?')) {
+                document.querySelectorAll('.material-qty').forEach(input => {
+                    input.value = '';
+                });
+                updatePO();
+                showNotification('Materials cleared');
+            }
+        }
+
+        // Export functions
+        function exportPO() {
+            showNotification('📄 Generating PDF... (Feature requires backend integration)');
+        }
+
+        function exportExcel() {
+            showNotification('📊 Exporting to Excel... (Feature requires backend integration)');
+        }
+
+        function emailPO() {
+            showNotification('📧 Opening email client... (Feature requires backend integration)');
+        }
+
+        function sendToServiceTitan() {
+            showNotification('🚀 Sending to ServiceTitan... (Requires API configuration)');
+        }
+
+        function generateProposal() {
+            showNotification('📋 Generating proposal document... (Feature requires backend integration)');
+        }
+
+        // Pricing functions
+        function updatePricing() {
+            const margin = parseFloat(document.getElementById('gpMargin').value) / 100;
+            const equipCost = 1850; // Base equipment cost
+            const matCost = 2713; // Base material cost
+            const laborCost = 3800;
+            
+            const totalCost = equipCost + matCost + laborCost;
+            const sellingPrice = totalCost / (1 - margin);
+            const grossProfit = sellingPrice - totalCost;
+
+            document.getElementById('equipCost').textContent = '$' + equipCost.toLocaleString();
+            document.getElementById('matCost').textContent = '$' + matCost.toLocaleString();
+            document.getElementById('laborCost').textContent = '$' + laborCost.toLocaleString();
+            document.getElementById('totalCost').textContent = '$' + totalCost.toLocaleString();
+            document.getElementById('sellingPrice').textContent = '$' + Math.round(sellingPrice).toLocaleString();
+            document.getElementById('grossProfit').textContent = '$' + Math.round(grossProfit).toLocaleString();
+        }
+
+        // Integration functions
+        function openSTDocs() {
+            window.open('https://developer.servicetitan.io', '_blank');
+        }
+
+        function downloadIntegrationGuide() {
+            showNotification('📥 Integration guide download started');
+        }
+
+        // Notification system
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--color-teal-600);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
+        renderMaterials();
+        updatePricing();
+
+        // Load saved data if exists
+        window.addEventListener('load', () => {
+            const savedProject = localStorage.getItem('currentProject');
+            if (savedProject) {
+                const project = JSON.parse(savedProject);
+                Object.keys(project).forEach(key => {
+                    const el = document.getElementById(key === 'customer' ? 'customerName' : 
+                                                      key === 'furnace' ? 'furnaceModel' :
+                                                      key === 'condenser' ? 'condModel' :
+                                                      key === 'coil' ? 'coilModel' : key);
+                    if (el) el.value = project[key];
+                });
+            }
+
+            const savedMaterials = localStorage.getItem('currentMaterials');
+            if (savedMaterials) {
+                const materials = JSON.parse(savedMaterials);
+                materials.forEach(mat => {
+                    const input = document.querySelector(`[data-category="${mat.category}"][data-index="${mat.index}"]`);
+                    if (input) input.value = mat.qty;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
